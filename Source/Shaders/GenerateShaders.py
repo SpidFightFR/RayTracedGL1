@@ -196,7 +196,10 @@ def main():
                 with open(filename, "r") as dpd:
                     for line in dpd:
                         if "#include" in line:
-                            dpdFile = line.split("\"")[1]
+                            if '"' in line:
+                                dpdFile = line.split('"')[1]
+                            else:
+                                continue
                             for dpdFolder in DEPENDENCY_FOLDERS:
                                 dpd = abspath(dpdFolder + dpdFile)
                                 if os.path.exists(dpd) and dpd != filename:
